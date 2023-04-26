@@ -43,7 +43,7 @@ const getUser = async (req, res) => {
               email: user.email,
             },
             process.env.JWT_SECRET,
-            { expiresIn: "1h" },
+            { expiresIn: 60 * 60 },
             (err, token) => {
               res.status(200).json({
                 status: 200,
