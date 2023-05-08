@@ -19,7 +19,7 @@ const getCars = async (req, res) => {
       data,
     });
   } catch (error) {
-    res.status(500).json(catchError(timestamp, error));
+    res.status(500).json(catchError(error));
   }
 };
 
@@ -35,7 +35,7 @@ const addNewCar = async (req, res) => {
       data: body,
     });
   } catch (error) {
-    res.status(500).json(catchError(timestamp, error));
+    res.status(500).json(catchError(error));
   }
 };
 
@@ -51,7 +51,7 @@ const updateCar = async (req, res) => {
       data: body,
     });
   } catch (error) {
-    res.status(500).json(catchError(timestamp, error));
+    res.status(500).json(catchError(error));
   }
 };
 
@@ -63,10 +63,9 @@ const deleteCar = async (req, res) => {
       status: 200,
       timestamp,
       message: `Berhasil menghapus data mobil dengan id ${id}`,
-      data: null,
     });
   } catch (error) {
-    res.status(500).json(catchError(timestamp, error));
+    res.status(500).json(catchError(error));
   }
 };
 

@@ -22,7 +22,7 @@ const createNewUser = async (req, res) => {
         message: "Register berhasil silahkan login untuk dapat menggunakan API",
       });
     } catch (error) {
-      res.status(500).json(catchError(timestamp, error));
+      res.status(500).json(catchError(error));
     }
   }
 };
@@ -48,7 +48,7 @@ const getUser = async (req, res) => {
               res.status(200).json({
                 status: 200,
                 timestamp,
-                message: "Login berhasil",
+                message: "Login berhasil, token akan expire dalam 1 jam",
                 token,
               });
             }
@@ -57,9 +57,13 @@ const getUser = async (req, res) => {
           res.status(401).json({
             status: 401,
             message: "Password yang anda masukkan salah",
-            data: err,
           });
         }
+      });
+    } else {
+      res.status(401).json({
+        status: 401,
+        message: "Email tidak terdaftar",
       });
     }
   } catch (error) {

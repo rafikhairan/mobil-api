@@ -12,10 +12,33 @@ const getAllTypes = async (req, res) => {
       data,
     });
   } catch (error) {
-    res.status(500).json(catchError(timestamp, error));
+    res.status(500).json(catchError(error));
+  }
+};
+
+const createType = async (req, res) => {
+  const { tipe } = req.body;
+  const [checkTypeIsExist] = await typeModel.checkTypeIsExist(tipe);
+  if (checkTypeIsExist.length === 1) {
+    res.status(400).json({
+      status: 400,
+      message: "Tipe mobil tersebut sudah terdaftar",
+    });
+  } else {
+    try {
+      await typeModel.createType(tipe);
+      res.status(201).json({
+        status: 201,
+        message: "Berhasil menambahkan tipe mobil",
+        timestamp,
+      });
+    } catch (error) {
+      res.status(500).json(catchError(error));
+    }
   }
 };
 
 module.exports = {
   getAllTypes,
+  createType,
 };
